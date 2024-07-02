@@ -49,4 +49,8 @@ export class AppComponent implements OnInit{
     const getDatas = localStorage.getItem('items');
     this.items = getDatas ? JSON.parse(getDatas) : [];
   }
+  deleteData(id:number){
+    this.items = this.items.filter(item => item.id !== id);
+    localStorage.setItem('items', JSON.stringify(this.items));
+  }
 }
