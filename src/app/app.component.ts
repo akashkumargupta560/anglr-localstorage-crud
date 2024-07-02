@@ -19,6 +19,7 @@ export class AppComponent implements OnInit{
   constructor(private formBuilder:FormBuilder){}
   ngOnInit(): void {
     this.formDetail();
+    this.getAllData();
   }
   formDetail(){
     this.localStorageForm = this.formBuilder.group({
@@ -43,5 +44,9 @@ export class AppComponent implements OnInit{
       localStorage.setItem('items', JSON.stringify(this.items));
       this.localStorageForm.reset();
     }
+  }
+  getAllData(){
+    const getDatas = localStorage.getItem('items');
+    this.items = getDatas ? JSON.parse(getDatas) : [];
   }
 }
