@@ -16,6 +16,9 @@ export class AppComponent implements OnInit{
   title = 'angularLocal';
   localStorageForm!:FormGroup;
   items: Item[] = [];
+  showAdd!:boolean;
+  showUpdate!:boolean;
+  selectedUser: any;
   constructor(private formBuilder:FormBuilder){}
   ngOnInit(): void {
     this.formDetail();
@@ -28,6 +31,7 @@ export class AppComponent implements OnInit{
       password: new FormControl('',[Validators.required]),
       address: new FormControl('',[Validators.required])
     })
+
   }
   onSubmit(){
     console.log(this.localStorageForm.value)
@@ -48,6 +52,33 @@ export class AppComponent implements OnInit{
   getAllData(){
     const getDatas = localStorage.getItem('items');
     this.items = getDatas ? JSON.parse(getDatas) : [];
+  }
+  clickAddForm(){
+    this.localStorageForm.reset();
+    this.showAdd=true;
+    this.showUpdate=false;
+  }
+  editForm(row:any){
+    console.log(row,'roe');
+    this.selectedUser = row;
+    
+    this.showAdd=false;
+    this.showUpdate=true;
+    if(this.selectedUser){
+      this.localStorageForm.patchValue({
+      name: this.selectedUser.name,
+      email: this.selectedUser.email,
+      password: this.selectedUser.password,
+      address: this.selectedUser.address
+      });
+    }
+  }
+  updateData(val:Item){
+    const index = this.items.findIndex(i => i.id === val.id);
+    if(index !== -1){
+      this.items[index] = val;
+      localStorage.setItem('items', JSON.stringify(this.items));
+    }
   }
   deleteData(id:number){
     this.items = this.items.filter(item => item.id !== id);
