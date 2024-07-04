@@ -100,8 +100,8 @@
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-        <button type="button" *ngIf="showAdd" class="btn btn-primary" (click)="onSubmit()" [disabled]="this.localStorageForm.invalid">Submit</button>
-        <button type="button" #closebutton *ngIf="showUpdate" class="btn btn-primary" (click)="updateData()" [disabled]="this.localStorageForm.invalid">Update</button>
+        <button type="button" data-bs-dismiss="modal" *ngIf="showAdd" class="btn btn-primary" (click)="onSubmit()" [disabled]="this.localStorageForm.invalid">Submit</button>
+        <button type="button" data-bs-dismiss="modal" *ngIf="showUpdate" class="btn btn-primary" (click)="updateData()" [disabled]="this.localStorageForm.invalid">Update</button>
       </div>
     </div>
   </div>
